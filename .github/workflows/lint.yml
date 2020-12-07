@@ -1,0 +1,29 @@
+name: Lint
+on:
+- pull_request
+- push
+
+jobs:
+  dockerfile:
+    name: dockerfile
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Run hadolint
+       uses: brpaz/hadolint-action@v1.1.0
+
+  markdownlint:
+    name: markdown
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run markdownlint
+      uses: actionshub/markdownlint@2.0.0
+
+  shellcheck:
+    name: shellcheck
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run shellcheck
+      uses: ludeeus/action-shellcheck@1.0.0

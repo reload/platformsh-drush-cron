@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+printf "    UserKnownHostsFile /config/.ssh/known_hosts\n" >> /etc/ssh/ssh_config
+
+IFS=: read -r -a argument <<<"$1"
+
+project=${argument[0]}
+command=${argument[1]:-cron}
+
+mapfile -t environments < <( platform environment:list --no-inactive --yes --pipe --project="$project")
+
+for env in "${environments[@]}"; do
+    platform environment:drush --yes --project="$project" --environment="$env" "${command}" "${@:2}"
+done
