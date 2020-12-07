@@ -53,7 +53,7 @@ Also you better run it manually the first time. You have to accept SSH
 server host keys:
 
 ```console
-$ docker run -it --rm -v "$PWD/config:/config" reload/platform-drush-cron:latest <platform project ID>
+$ docker run -it --rm -v "$PWD/config:/config:z" reload/platformsh-drush-cron:latest <platform project ID>
 The authenticity of host 'ssh.eu-2.platform.sh (34.248.104.12)' can't be established.
 RSA key fingerprint is SHA256:YuC5lv0dMBN4tOZLIUBLDDT0ZIWyyaVfeDrCcrEH1Sw.
 Are you sure you want to continue connecting (yes/no)? yes
@@ -70,7 +70,7 @@ site and need to use `cron-run` instead of `cron`. Extend the project
 ID with a colon and the name of the command:
 
 ```console
-docker run -it --rm -v "$PWD/config:/config" reload/platform-drush-cron:latest <platform project ID>:cron-run
+docker run -it --rm -v "$PWD/config:/config:z" reload/platformsh-drush-cron:latest <platform project ID>:cron-run
 ```
 
 ## Run the command using systemd services and timers
@@ -79,7 +79,7 @@ Here is an example of running it every minute using a systemd service
 and timer where we pass the project ID as an instance name to a
 systemd template unit.
 
-`platformsh-drush-cron.service`:
+`platformsh-drush-cron@.service`:
 
 ```ini
 [Unit]
@@ -87,10 +87,10 @@ Description=Run Platform.sh cron for project %i
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/docker docker run -it --rm -v "%h/platformsh-drush-cron/config:/config" reload/platform-drush-cron:latest %i
+ExecStart=/usr/bin/docker run --rm -v "%h/platformsh-drush-cron/config:/config:z" reload/platformsh-drush-cron:latest %i
 ```
 
-`platformsh-drush-cron.timer`:
+`platformsh-drush-cron@.timer`:
 
 ```ini
 [Unit]
