@@ -98,6 +98,7 @@ Description=Run Platform.sh cron for project %i every minute
 
 [Timer]
 OnCalendar=minutely
+AccuracySec=1us
 
 [Install]
 WantedBy=timers.target
