@@ -22,7 +22,7 @@ scheduled publishing on Pull Request-environments as well.
 Let's start out simply by running the command once:
 
 ```console
-docker run --rm -e PROJECT=<platform project ID> -e PLATFORMSH_CLI_TOKEN=<token> reload/platform-drush-cron:latest <platform project ID>
+docker run --rm -e PROJECT=<platform project ID> -e PLATFORMSH_CLI_TOKEN=<token> ghcr.io/reload/platform-drush-cron:latest <platform project ID>
 ```
 
 That will run `platform drush cron` on all environments of the project
@@ -58,7 +58,7 @@ Description=Run Platform.sh cron for project %i
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/docker run --rm --env-file "%h/platformsh-drush-cron/config/%i.env" reload/platformsh-drush-cron:latest
+ExecStart=/usr/bin/docker run --rm --env-file "%h/platformsh-drush-cron/config/%i.env" ghcr.io/reload/platformsh-drush-cron:latest
 ```
 
 `platformsh-drush-cron@.timer`:
