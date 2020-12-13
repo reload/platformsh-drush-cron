@@ -2,8 +2,8 @@
 # hadolint ignore=DL3007
 FROM pjcdawkins/platformsh-cli:latest
 
+RUN printf "    StrictHostKeyChecking  no\n    UserKnownHostsFile /dev/null\n" >> /etc/ssh/ssh_config
+
 COPY bin/ /usr/local/bin
-WORKDIR /config
-ENV HOME=/config
 
 ENTRYPOINT [ "entrypoint" ]

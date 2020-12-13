@@ -22,62 +22,33 @@ scheduled publishing on Pull Request-environments as well.
 Let's start out simply by running the command once:
 
 ```console
-docker run -it --rm -v "$PWD/config:/config" reload/platform-drush-cron:latest <platform project ID>
+docker run --rm -e PROJECT=<platform project ID> -e PLATFORMSH_CLI_TOKEN=<token> reload/platform-drush-cron:latest <platform project ID>
 ```
 
 That will run `platform drush cron` on all environments of the project
 with the ID `<platform project ID>`.
-
-But we cheated a bit. We need to authenticate using an API token
-first:
-
-```console
-$ docker run -it --rm -v "$PWD/config:/config" --entrypoint=api-token-login reload/platform-drush-cron:latest
-Please enter an API token:
->
-
-The API token is valid.
-You are logged in.
-
-Generating SSH certificate...
-A new SSH certificate has been generated.
-It will be automatically refreshed when necessary.
-Do you want to create an SSH configuration file automatically? [Y/n]
-Configuration file created successfully: /config/.ssh/config
-
-Username: <user>
-Email address: <mail@example.com>
-```
-
-Also you better run it manually the first time. You have to accept SSH
-server host keys:
-
-```console
-$ docker run -it --rm -v "$PWD/config:/config:z" reload/platformsh-drush-cron:latest <platform project ID>
-The authenticity of host 'ssh.eu-2.platform.sh (34.248.104.12)' can't be established.
-RSA key fingerprint is SHA256:YuC5lv0dMBN4tOZLIUBLDDT0ZIWyyaVfeDrCcrEH1Sw.
-Are you sure you want to continue connecting (yes/no)? yes
-```
-
-The mounted volume is used for storing API-token and SSH host keys.
 
 ## Running something else instead of `cron`
 
 You can actually run another Drush command instead of `cron`. This is
 useful if you use [Ultimate
 Cron](https://www.drupal.org/project/ultimate_cron) on an old Drupal 7
-site and need to use `cron-run` instead of `cron`. Extend the project
-ID with a colon and the name of the command:
+site and need to use `cron-run` instead of `cron`.
 
-```console
-docker run -it --rm -v "$PWD/config:/config:z" reload/platformsh-drush-cron:latest <platform project ID>:cron-run
-```
+Just set the environment variable `ARGUMENTS` to i.e. `cron-run`.
+
+Or if you wanted to run a queue you could use `queue:run my-queue` as `ARGUMENTS`.
+
+## Running something else instead of `drush`
+
+If you want to run another `platform` CLI command instead of `drush`
+you have to set the environment variable `COMMAND`.
 
 ## Run the command using systemd services and timers
 
 Here is an example of running it every minute using a systemd service
-and timer where we pass the project ID as an instance name to a
-systemd template unit.
+and timer where we pass the API token and project ID in a environment
+file name after the instance name to a systemd template unit.
 
 `platformsh-drush-cron@.service`:
 
@@ -87,7 +58,7 @@ Description=Run Platform.sh cron for project %i
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/docker run --rm -v "%h/platformsh-drush-cron/config:/config:z" reload/platformsh-drush-cron:latest %i
+ExecStart=/usr/bin/docker run --rm --env-file "%h/platformsh-drush-cron/config/%i.env" reload/platformsh-drush-cron:latest
 ```
 
 `platformsh-drush-cron@.timer`:

@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-platform auth:api-token-login

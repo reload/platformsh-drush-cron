@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-printf "    UserKnownHostsFile /config/.ssh/known_hosts\n" >> /etc/ssh/ssh_config
+set -e
 
-IFS=: read -r -a argument <<<"$1"
+if test -z "$PROJECT"; then
+    echo "\$PROJECT is empty"
+    exit 1
+fi
 
-project=${argument[0]}
-command=${argument[1]:-cron}
+if test -z "$PLATFORMSH_CLI_TOKEN"; then
+    echo "\$PLATFORMSH_CLI_TOKEN is empty"
+    exit 2
+fi
 
-mapfile -t environments < <( platform environment:list --no-inactive --yes --pipe --project="$project")
+mapfile -t environments < <( platform environment:list --no-inactive --yes --pipe --project="$PROJECT")
 
-for env in "${environments[@]}"; do
-    platform environment:drush --yes --project="$project" --environment="$env" "${command}" "${@:2}"
+for environment in "${environments[@]}"; do
+    platform "environment:${COMMAND:-drush}" --yes --project="$PROJECT" --environment="$environment" "${ARGUMENTS:-cron}"
 done
