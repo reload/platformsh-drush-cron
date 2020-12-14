@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
 
@@ -12,8 +12,6 @@ if test -z "$PLATFORMSH_CLI_TOKEN"; then
     exit 2
 fi
 
-mapfile -t environments < <( platform environment:list --no-inactive --yes --pipe --project="$PROJECT")
-
-for environment in "${environments[@]}"; do
+for environment in $(platform environment:list --no-inactive --yes --pipe --project="$PROJECT"); do
     platform "environment:${COMMAND:-drush}" --yes --project="$PROJECT" --environment="$environment" "${ARGUMENTS:-cron}"
 done
