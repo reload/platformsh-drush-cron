@@ -10,4 +10,8 @@ COPY bin/ /usr/local/bin
 
 COPY --from=platformcli /usr/local/bin/platform /usr/local/bin/platform
 
+# Let's make sure we can actually run the command and let's out the
+# installed version in the build log.
+RUN platform --version
+
 ENTRYPOINT [ "entrypoint" ]
