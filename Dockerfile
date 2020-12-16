@@ -1,4 +1,6 @@
-FROM pjcdawkins/platformsh-cli@sha256:83c4cf2da7c8e0cd411e1ba8740ef198c69d1b4255e6196ae85620dc23504ef6 AS platformcli
+# There is no tagged release of pjcdawkins/platformsh-cli unfortunately.
+# hadolint ignore=DL3007
+FROM pjcdawkins/platformsh-cli:latest AS platformcli
 
 FROM php:7-cli-alpine3.12
 
