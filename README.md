@@ -28,6 +28,10 @@ docker run --rm -e PROJECT=<platform project ID> -e PLATFORMSH_CLI_TOKEN=<token>
 That will run `platform drush cron` on all environments of the project
 with the ID `<platform project ID>`.
 
+If you don't want to run it on all activated environments you can add
+a space separated list of environments in the `ENVIRONMENTS`
+environment variable.
+
 ## Running something else instead of `cron`
 
 You can actually run another Drush command instead of `cron`. This is
