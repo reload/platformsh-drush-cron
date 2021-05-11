@@ -16,6 +16,9 @@ if test -z "$ENVIRONMENTS"; then
     ENVIRONMENTS=$(platform environment:list --no-inactive --yes --pipe --project="$PROJECT")
 fi
 
+# Print the commands as they are executed.
+set -x
+
 for environment in ${ENVIRONMENTS}; do
     platform "environment:${COMMAND:-drush}" --yes --project="$PROJECT" --environment="$environment" -- "${ARGUMENTS:-cron}"
 done
