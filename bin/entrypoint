@@ -17,5 +17,5 @@ if test -z "$ENVIRONMENTS"; then
 fi
 
 for environment in ${ENVIRONMENTS}; do
-    platform "environment:${COMMAND:-drush}" --yes --project="$PROJECT" --environment="$environment" "${ARGUMENTS:-cron}"
+    platform "environment:${COMMAND:-drush}" --yes --project="$PROJECT" --environment="$environment" -- "${ARGUMENTS:-cron}"
 done
