@@ -50,7 +50,7 @@ jobs:
           ghcr.io/${{ github.repository }}:${{ steps.version.outputs.tag || github.sha }}
         push: ${{ github.ref == 'refs/heads/main' }}
     - name: Anchore Container Vulnerability Scan
-      uses: anchore/scan-action@v2
+      uses: anchore/scan-action@v2.0.4
       id: scan
       with:
         image: ghcr.io/${{ github.repository }}:${{ steps.version.outputs.tag || github.sha }}
