@@ -1,7 +1,7 @@
 # hadolint ignore=DL3007
 FROM pjcdawkins/platformsh-cli:latest@sha256:02bc92b85b16bea6af4132d64b4adfee957119dbce913b8a37bc410a5d0437c7 AS platformcli
 
-FROM php:8-cli-alpine3.12
+FROM php:8-cli-alpine3.13
 
 RUN apk add --no-cache "openssh>=8.3"
 
