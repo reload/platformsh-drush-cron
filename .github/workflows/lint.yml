@@ -47,7 +47,7 @@ jobs:
         context: .
         tags: build-test
     - name: Anchore Container Vulnerability Scan
-      uses: anchore/scan-action@v2
+      uses: anchore/scan-action@v3
       id: scan
       with:
         image: build-test
