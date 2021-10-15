@@ -3,7 +3,8 @@ FROM pjcdawkins/platformsh-cli:latest@sha256:3b2ae9613e37605032fd04f541da367e6a1
 
 FROM php:8-cli-alpine3.13
 
-RUN apk add --no-cache "openssh>=8.3"
+RUN apk add --no-cache "openssh>=8.3" \
+ && printf "    StrictHostKeyChecking  no\n    UserKnownHostsFile /dev/null\n" >> /etc/ssh/ssh_config
 
 COPY bin/ /usr/local/bin
 
