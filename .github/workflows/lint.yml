@@ -8,7 +8,7 @@ jobs:
     name: dockerfile
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v2
+     - uses: actions/checkout@v3
      - name: Run hadolint
        uses: hadolint/hadolint-action@v1.6.0
 
@@ -16,7 +16,7 @@ jobs:
     name: markdown
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Run markdownlint
       uses: actionshub/markdownlint@2.0.2
 
@@ -24,7 +24,7 @@ jobs:
     name: shellcheck
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Run shellcheck
       uses: ludeeus/action-shellcheck@1.1.0
 
@@ -32,7 +32,7 @@ jobs:
     name: docker build test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0
     - name: Set up Docker Buildx
