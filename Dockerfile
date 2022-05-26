@@ -1,7 +1,7 @@
 # hadolint ignore=DL3007
 FROM pjcdawkins/platformsh-cli:latest@sha256:1cd1577a7d741520978f43fb3fdf46ac5b33e20016c8a19ef9e7cab5a0fff2a2 AS platformcli
 
-FROM php:8-cli-alpine@sha256:ad4a4d0c78da5867ba5ceb00d6d4275559560fb01deabb75bb1b7e162d49e98a
+FROM php:8-cli-alpine@sha256:66ab629f452ac548feeda231d794ed7684ef87a4178f9d0ee3fb9ada099f11cb
 
 RUN apk add --no-cache "openssh>=8.3" \
  && printf "    StrictHostKeyChecking  no\n    UserKnownHostsFile /dev/null\n" >> /etc/ssh/ssh_config
