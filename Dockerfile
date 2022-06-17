@@ -1,5 +1,5 @@
 # hadolint ignore=DL3007
-FROM pjcdawkins/platformsh-cli:latest@sha256:1046100ae3782d2c93517f57a45fe16a674cd1ed4efd0c7a010e623603818a71 AS platformcli
+FROM pjcdawkins/platformsh-cli:latest@sha256:de3f8dae96348fd07ffa3b94fa6bd34723014a1b07b0aa086f18d299fe1cb35b AS platformcli
 
 FROM php:8-cli-alpine@sha256:5c2ea5d55fbe8fad6b29d8124ea92046f26a684acee440cd05c1dfb5a5423e18
 
